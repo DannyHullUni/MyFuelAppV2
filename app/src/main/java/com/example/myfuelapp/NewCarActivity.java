@@ -15,18 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class NewCarActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_car);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    public class NewWordActivity extends AppCompatActivity {
-        public static final String EXTRA_REPLY =
-                "com.example.android.roomwordssample.REPLY";
+        public static final String EXTRA_REPLY = "com.example.android.myfuelapp.REPLY";
 
         private EditText mEditCarView;
 
@@ -51,7 +40,6 @@ public class NewCarActivity extends AppCompatActivity {
                 }
             });
         }
-    }
 }
 
 
