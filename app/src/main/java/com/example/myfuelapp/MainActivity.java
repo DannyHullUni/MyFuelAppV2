@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
@@ -38,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        final Button deleteButton = findViewById(R.id.button_delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View view) {
+                mCarViewModel.deleteAll();
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +55,29 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, NEW_CAR_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                                         int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Car myCar = adapter.getCarAtPosition(position);
+
+                        // Delete the car
+                        mCarViewModel.deleteCar(myCar);
+                    }
+                });
+
+        helper.attachToRecyclerView(recyclerView);
 
         mCarViewModel = ViewModelProviders.of(this).get(CarViewModel.class);
 
@@ -86,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NEW_CAR_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Car car = new Car(data.getStringExtra(NewCarActivity.EXTRA_REPLY));
-            mCarViewModel.insert(car);
+            mCarViewModel.insert(car); //calls the INSERT from the DAO to store the car in the database
         } else {
             Toast.makeText(
                     getApplicationContext(),

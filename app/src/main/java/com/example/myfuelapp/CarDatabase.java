@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Car.class}, version = 1, exportSchema = false)
+@Database(entities = {Car.class}, version = 2, exportSchema = false)
 public abstract class CarDatabase extends RoomDatabase {
 
     public abstract CarDao carDao();
@@ -54,14 +54,12 @@ public abstract class CarDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate the database
-            // when it is first created
-            mDao.deleteAll();
 
-            for (int i = 0; i <= cars.length - 1; i++) {
-                Car word = new Car(cars[i]);
-                mDao.insert(word);
+            if (mDao.getAnyCar().length < 1) {
+                for (int i = 0; i <= cars.length - 1; i++) {
+                    Car car = new Car(cars[i]);
+                    mDao.insert(car);
+                }
             }
             return null;
         }

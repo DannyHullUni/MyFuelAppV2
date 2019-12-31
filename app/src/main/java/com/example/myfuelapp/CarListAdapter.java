@@ -58,4 +58,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewH
             carItemView = itemView.findViewById(R.id.textView);
         }
     }
+
+    public Car getCarAtPosition (int position) {
+        return mCars.get(position);
+    }
 }

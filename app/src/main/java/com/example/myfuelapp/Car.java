@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 public class Car {
         @PrimaryKey
         @NonNull
-        @ColumnInfo(name = "car" )
+        @ColumnInfo(name = "manufacturer" ) //maybe change this back if it messes up to "car"
         private String mCar;
 
         public Car(@NonNull String car) {

@@ -23,6 +23,15 @@ public class CarViewModel extends AndroidViewModel {
     }
 
     public void insert(Car car) {
+
         mRepository.insert(car);
+    }
+
+    public void deleteAll() {
+        mRepository.deleteAll();
+    }
+
+    public void deleteCar(Car car) {
+        mRepository.deleteCar(car);
     }
 }
