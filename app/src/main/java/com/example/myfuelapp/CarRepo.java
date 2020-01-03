@@ -40,8 +40,8 @@ public class CarRepo {
 
         private CarDao mAsyncTaskDao;
 
-        insertAsyncTask(CarDao dao) {
-            mAsyncTaskDao = dao;
+        private insertAsyncTask(CarDao dao) {
+            this.mAsyncTaskDao = dao;
         }
 
         @Override
@@ -50,6 +50,21 @@ public class CarRepo {
             return null;
         }
     }
+
+    /* private static class insertAllAsyncTask extends AsyncTask<Car, Void, Void> {
+
+        private CarDao mAsyncTaskDao;
+
+        insertAllAsyncTask(CarDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Car... params) {
+            mAsyncTaskDao.insertAll();
+            return null;
+        }
+    } */
 
     private static class deleteAllCarsAsyncTask extends AsyncTask<Void, Void, Void> {
         private CarDao mAsyncTaskDao;

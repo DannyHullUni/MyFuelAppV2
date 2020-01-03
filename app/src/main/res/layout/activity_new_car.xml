@@ -9,14 +9,30 @@
     <EditText
         android:id="@+id/edit_car"
         style="@style/text_view_style"
-        android:hint="Manufacturer.. (Pegeout)"
-        android:inputType="textAutoComplete" />
+        android:hint="Manufacturer.. (Example: Pegeout)"
+        android:inputType="textAutoComplete"
+        android:maxLength="12"/>
 
     <EditText
         android:id="@+id/edit_car_model"
         style="@style/text_view_style"
-        android:hint="Model.. (Sport)"
-        android:inputType="textAutoComplete"/>
+        android:hint="Model.. (Example: 206)"
+        android:inputType="textAutoComplete"
+        android:maxLength="12"/>
+
+    <EditText
+        android:id="@+id/edit_car_year"
+        style="@style/text_view_style"
+        android:hint="Year.. (Example: 1998)"
+        android:inputType="number"
+        android:maxLength="4"/>
+
+    <EditText
+        android:id="@+id/edit_car_mileage"
+        style="@style/text_view_style"
+        android:hint="Mileage.. (Example: 86754)"
+        android:inputType="number"
+        android:maxLength="6"/>
 
     <Button
         android:id="@+id/button_save"

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewHolder> {
@@ -31,6 +33,10 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewH
         if (mCars != null) {
             Car current = mCars.get(position);
             holder.carItemView.setText(current.getCar());
+            holder.carModelView.setText(current.getCarModel());
+            //holder.carYearView.setText(current.getCarYear());
+            //holder.carMileageView.setText(current.getCarMileage());
+
         } else {
             // Covers the case of data not being ready yet.
             holder.carItemView.setText("No Car");
@@ -52,10 +58,16 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewH
 
     class CarViewHolder extends RecyclerView.ViewHolder {
         private final TextView carItemView;
+        private final TextView carModelView;
+        //private final TextView carYearView;
+        //private final TextView carMileageView;
 
         private CarViewHolder(View itemView) {
             super(itemView);
             carItemView = itemView.findViewById(R.id.textView);
+            carModelView = itemView.findViewById(R.id.modelTextView);
+            //carYearView = itemView.findViewById(R.id.yearTextView);
+            //carMileageView = itemView.findViewById(R.id.mileageTextView);
         }
     }
 

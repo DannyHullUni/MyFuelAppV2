@@ -15,6 +15,9 @@ public interface CarDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Car car);
 
+    //@Insert
+    //void insertAll(Car... cars);
+
     @Query("DELETE FROM car_table")
     void deleteAll();
 

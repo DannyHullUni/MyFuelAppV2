@@ -27,6 +27,10 @@ public class CarViewModel extends AndroidViewModel {
         mRepository.insert(car);
     }
 
+    /* public void insertAll(Car... cars) {
+        mRepository.insertAll();
+    } */
+
     public void deleteAll() {
         mRepository.deleteAll();
     }

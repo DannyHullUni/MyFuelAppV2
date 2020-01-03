@@ -116,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_CAR_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Car car = new Car(data.getStringExtra(NewCarActivity.EXTRA_REPLY));
-            mCarViewModel.insert(car); //calls the INSERT from the DAO to store the car in the database
+        if (requestCode == NEW_CAR_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            String car = data.getStringExtra(NewCarActivity.EXTRA_REPLY);
+            String model = data.getStringExtra(NewCarActivity.EXTRA_MODEL);
+            Car myCar = new Car(car, model);
+            mCarViewModel.insert(myCar); //calls the INSERT from the DAO to store the car in the database
         } else {
             Toast.makeText(
                     getApplicationContext(),

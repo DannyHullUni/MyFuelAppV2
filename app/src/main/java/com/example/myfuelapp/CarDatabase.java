@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Car.class}, version = 2, exportSchema = false)
+@Database(entities = {Car.class}, version = 11, exportSchema = false)
 public abstract class CarDatabase extends RoomDatabase {
 
     public abstract CarDao carDao();
@@ -46,22 +46,20 @@ public abstract class CarDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final CarDao mDao;
-        String[] cars = {"Ford", "Honda", "Pegeout"};
 
-        PopulateDbAsync(CarDatabase db) {
+        private PopulateDbAsync(CarDatabase db) {
             mDao = db.carDao();
         }
 
         @Override
-        protected Void doInBackground(final Void... params) {
+        protected Void doInBackground(final Void... voids) {
 
-            if (mDao.getAnyCar().length < 1) {
-                for (int i = 0; i <= cars.length - 1; i++) {
-                    Car car = new Car(cars[i]);
-                    mDao.insert(car);
+                    mDao.insert(new Car("Honda", "Whatever"));
+                    mDao.insert(new Car("Ford", "Tester"));
+                    return null;
                 }
             }
-            return null;
+
         }
-    }
-}
+
+
