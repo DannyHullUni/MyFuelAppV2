@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorScreenBackground"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".InputFuelActivity">
+
+    <EditText
+        android:id="@+id/edit_odometer"
+        style="@style/text_view_style"
+        android:hint="Current Odometer Reading"
+        android:inputType="number"
+        android:maxLength="6"/>
+
+    <EditText
+        android:id="@+id/edit_fuel_cost"
+        style="@style/text_view_style"
+        android:hint="Price per Litre, Example: 1.22"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@id/edit_odometer"
+        android:maxLength="4"/>
+
+    <EditText
+        android:id="@+id/edit_fuel_litres"
+        style="@style/text_view_style"
+        android:hint="Litres dispensed, Example: 5.01"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/edit_fuel_cost"
+        android:maxLength="5"/>
+
+    <Button
+        android:id="@+id/button_save_log"
+        style="@style/button_style"
+        android:text="Save New Fuel Log" />
+
+</LinearLayout>

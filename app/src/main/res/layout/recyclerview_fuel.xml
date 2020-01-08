@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android=
+    "http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/odometer_reading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_view_style"
+        tools:text="Odometer reading at time" />
+
+
+    <TextView
+        android:id="@+id/fuel_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/odometer_reading"
+        android:layout_marginTop="0dp"
+        style="@style/text_view_style"
+        android:textSize="18sp"
+        tools:text="Fuel Price" />
+
+    <TextView
+        android:id="@+id/fuel_litres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_price"
+        android:layout_marginTop="0dp"
+        style="@style/text_view_style"
+        android:textSize="18sp"
+        tools:text="Litres/Gallons" />
+    <TextView
+        android:id="@+id/fuel_miles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_litres"
+        android:layout_marginTop="0dp"
+        android:textSize="18sp"
+        tools:text="Miles/Distance" />
+    <TextView
+        android:id="@+id/fuel_cost_per_mile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_miles"
+        android:layout_marginTop="0dp"
+        android:textSize="18sp"
+        tools:text="Cost Per Mile/KM" />
+    <TextView
+        android:id="@+id/fuel_cost_per_litre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_cost_per_mile"
+        android:layout_marginTop="0dp"
+        android:textSize="18sp"
+        tools:text="Cost per Litre/Gallon" />
+    <TextView
+        android:id="@+id/fuel_miles_per_litre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_cost_per_litre"
+        android:layout_marginTop="0dp"
+        android:textSize="18sp"
+        tools:text="Miles per Litre/Gallon" />
+    <TextView
+        android:id="@+id/fuel_kilo_per_litre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_miles_per_litre"
+        android:layout_marginTop="0dp"
+        android:textSize="18sp"
+        tools:text="KM per Litre/Gallon" />
+
+</RelativeLayout>

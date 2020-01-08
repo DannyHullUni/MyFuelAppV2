@@ -1,10 +1,13 @@
 package com.example.myfuelapp;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +19,10 @@ import java.util.List;
 
 public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewHolder> {
 
+    private static final String TAG = "CarListAdapter";
     private final LayoutInflater mInflater;
     private List<Car> mCars;
+    private OnItemClickListener listener;
 
     CarListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
@@ -32,10 +37,14 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewH
     public void onBindViewHolder(@NonNull CarListAdapter.CarViewHolder holder, int position) {
         if (mCars != null) {
             Car current = mCars.get(position);
-            holder.carItemView.setText(current.getCar());
-            holder.carModelView.setText(current.getCarModel());
-            //holder.carYearView.setText(current.getCarYear());
-            //holder.carMileageView.setText(current.getCarMileage());
+
+            String mpg = "Average MPG - " + Double.toString(current.getCarMPG());
+            String id = "#" + Integer.toString(current.getID());
+
+            holder.carItemView.setText("Make - " + current.getCar());
+            holder.carModelView.setText("Model - " + current.getCarModel());
+            holder.carMPGView.setText(mpg);
+            holder.carIDView.setText(id);
 
         } else {
             // Covers the case of data not being ready yet.
@@ -59,16 +68,34 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarViewH
     class CarViewHolder extends RecyclerView.ViewHolder {
         private final TextView carItemView;
         private final TextView carModelView;
-        //private final TextView carYearView;
-        //private final TextView carMileageView;
+        private final TextView carMPGView;
+        private final TextView carIDView;
+
 
         private CarViewHolder(View itemView) {
             super(itemView);
             carItemView = itemView.findViewById(R.id.textView);
             carModelView = itemView.findViewById(R.id.modelTextView);
-            //carYearView = itemView.findViewById(R.id.yearTextView);
-            //carMileageView = itemView.findViewById(R.id.mileageTextView);
+            carMPGView = itemView.findViewById(R.id.mpgTextView);
+            carIDView = itemView.findViewById(R.id.idTextView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick (View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.ItemClicked(mCars.get(position));}
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void ItemClicked (Car car);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     public Car getCarAtPosition (int position) {

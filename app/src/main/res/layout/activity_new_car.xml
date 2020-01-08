@@ -20,19 +20,44 @@
         android:inputType="textAutoComplete"
         android:maxLength="12"/>
 
-    <EditText
-        android:id="@+id/edit_car_year"
+    <TextView
+        android:id="@+id/edit_car_MPG"
         style="@style/text_view_style"
-        android:hint="Year.. (Example: 1998)"
+        android:hint="MPG(Example: 45.3)"
         android:inputType="number"
+        android:text=""
         android:maxLength="4"/>
 
     <EditText
-        android:id="@+id/edit_car_mileage"
+        android:id="@+id/edit_car_ID"
         style="@style/text_view_style"
-        android:hint="Mileage.. (Example: 86754)"
+        android:hint="Car ID"
         android:inputType="number"
-        android:maxLength="6"/>
+        android:maxLength="10"/>
+
+    <TextView
+        android:id="@+id/Output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Click Here to Set MPG"
+        android:onClick="fetchData"/>
+
+    <Button
+        android:id="@+id/button_find_car"
+        style="@style/button_style"
+        android:text="Find Car by ID on FuelEconomy" />
 
     <Button
         android:id="@+id/button_save"

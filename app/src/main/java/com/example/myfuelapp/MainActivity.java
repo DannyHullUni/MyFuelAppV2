@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -26,24 +27,32 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private CarViewModel mCarViewModel;
+    private FuelViewModel mFuelViewModel;
     public static final int NEW_CAR_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final CarListAdapter adapter = new CarListAdapter(this);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         final Button deleteButton = findViewById(R.id.button_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view) {
                 mCarViewModel.deleteAll();
+                mFuelViewModel.deleteAll();
+                View fab = findViewById(R.id.fab);
+                fab.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -53,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NewCarActivity.class);
                 startActivityForResult(intent, NEW_CAR_ACTIVITY_REQUEST_CODE);
+
+
             }
         });
 
@@ -74,12 +85,27 @@ public class MainActivity extends AppCompatActivity {
 
                         // Delete the car
                         mCarViewModel.deleteCar(myCar);
+                        mFuelViewModel.deleteAll();
+                        View fab = findViewById(R.id.fab);
+                        fab.setVisibility(View.VISIBLE);
                     }
                 });
 
         helper.attachToRecyclerView(recyclerView);
 
+        adapter.setOnItemClickListener(new CarListAdapter.OnItemClickListener() {
+            @Override
+            public void ItemClicked(Car car) {
+                Intent intent = new Intent(MainActivity.this, Fuel_Details.class);;
+
+                startActivity(intent);
+                //START NEW ACTIVITY FROM HERE, NEEDS TO BE PASSED A POSITION TO KNOW WHAT ITEM WAS CLICKED..
+            }
+        });
+
         mCarViewModel = ViewModelProviders.of(this).get(CarViewModel.class);
+
+        mFuelViewModel = ViewModelProviders.of(this).get(FuelViewModel.class);
 
         mCarViewModel.getAllCars().observe(this, new Observer<List<Car>>() {
             @Override
@@ -119,9 +145,17 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == NEW_CAR_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK)
         {
             String car = data.getStringExtra(NewCarActivity.EXTRA_REPLY);
-            String model = data.getStringExtra(NewCarActivity.EXTRA_MODEL);
-            Car myCar = new Car(car, model);
-            mCarViewModel.insert(myCar); //calls the INSERT from the DAO to store the car in the database
+            String model = data.getStringExtra(NewCarActivity.EXTRA_MOD);
+            double mpg = data.getDoubleExtra(NewCarActivity.EXTRA_MPG, 0.0);
+            int carID = data.getIntExtra(NewCarActivity.EXTRA_ID, 0);
+
+            Car myCar = new Car(carID, car, model, mpg);
+
+            mCarViewModel.insert(myCar);
+            View fab = findViewById(R.id.fab);
+            fab.setVisibility(View.GONE);
+
+            //calls the INSERT from the DAO to store the car in the database
         } else {
             Toast.makeText(
                     getApplicationContext(),

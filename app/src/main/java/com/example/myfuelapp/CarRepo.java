@@ -34,6 +34,7 @@ public class CarRepo {
     public void deleteCar(Car car) {
         new deleteCarAsyncTask(mCarDao).execute(car);
     }
+
     //METHODS END
 
     private static class insertAsyncTask extends AsyncTask<Car, Void, Void> {
@@ -94,5 +95,4 @@ public class CarRepo {
             return null;
         }
     }
-
 }
